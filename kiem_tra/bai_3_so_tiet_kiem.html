@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<span>mã so</span>
+<input max="5" id="ma"> <br>
+<span> loại tiết kiệm</span>
+<input max="10" id="loai"> <br>
+<span> ho tên khách hàng </span>
+<input max="30" id="ten"> <br>
+<span> chứng minh nhân dân</span>
+<input id="chungMinh"><br>
+<span>ngày mở sổ</span>
+<input type="date" id="ngay"><br>
+<span>số tiền gửi</span>
+<input id="tien"><br>
+<button onclick="them()">thêm</button>
+<div id="ketQua"></div>
+<script>
+    class SoTietKiem {
+        constructor(ma, loai, ten, chungMinh, ngay, tien) {
+            this.ma = ma;
+            this.loai = loai;
+            this.ten = ten;
+            this.chungMinh = chungMinh;
+            this.ngay = ngay;
+            this.tien = tien;
+        }
+        getMa() {
+            return this.ma;
+        }
+        getTen() {
+            return this.ten;
+        }
+        getLoai() {
+            return this.loai;
+        }
+        getChungMinh() {
+            return this.chungMinh;
+        }
+        getNgay() {
+            return this.ngay;
+        }
+        getTien() {
+            return this.tien;
+        }
+    }
+    let so1 = new SoTietKiem("1734", "cho con", " Nguyen văn A", "123456776", "12-03-2025", "10000");
+    let so2 = new SoTietKiem("1834", "mua xe", " Nguyen văn B", "123456776", "14-02-2025", "20000");
+    let so3 = new SoTietKiem("1204", "lam nha", " Nguyen văn C", "1234577776", "01-03-2024", "300000");
+    let array = [so1, so2, so3];
+    quanLi(array);
+    function them() {
+        let maMoi = document.getElementById("ma").value;
+        let loaiMoi = document.getElementById("loai").value;
+        let tenMoi = document.getElementById("ten").value;
+        let chungMinhMoi = document.getElementById("chungMinh").value;
+        let ngayMoi = document.getElementById("ngay").value;
+        let tienMoi = document.getElementById("tien").value;
+        let soMoiThem = new SoTietKiem(maMoi, loaiMoi, tenMoi, chungMinhMoi, ngayMoi, tienMoi);
+        if (maMoi !== "" && loaiMoi !== "" && tenMoi !== "" && chungMinhMoi !== "" && ngayMoi !== "" && tienMoi !== "") {
+            array.push(soMoiThem);
+        } else {
+            alert(" vui long nhập đủ thông tin máy");
+        }
+
+        quanLi(array);
+        document.getElementById("ma").value = "";
+        document.getElementById("loai").value = "";
+        document.getElementById("ten").value = "";
+        document.getElementById("chungMinh").value = "";
+        document.getElementById("ngay").value = "";
+        document.getElementById("tien").value = "";
+    }
+    function xoa(viTri) {
+        let layViTriXoa = confirm("ban có muốn xóa" + array[viTri].ten + "không ?");
+        if (layViTriXoa) {
+            array.splice(viTri, 1);
+        }
+        quanLi(array);
+    }
+    function quanLi(mang) {
+        let stringTable = `<table border="1">
+            <tr>
+                <th> mã số</th>
+                <th> loai tiêt kiệm</th>
+                <th> họ tên khach hang</th>
+                <th> chứng minh nhân dân</th>
+                <th>  ngày mở sổ</th>
+                <th> số tiền gửi</th>
+                <th>xóa</th>
+            </tr>`
+        for (let i = 0; i < mang.length; i++) {
+            stringTable += `
+                <tr>
+                    <td>${mang[i].getMa()}</td>
+                    <td>${mang[i].getLoai()}</td>
+                    <td>${mang[i].getTen()}</td>
+                    <td >${mang[i].getChungMinh()}</td>
+                    <td >${mang[i].getNgay()}</td>
+                    <td>${mang[i].getTien()}</td>
+                    <td><button onclick="xoa(${i})">xóa</button></td>
+                </tr>`
+        }
+        document.getElementById("ketQua").innerHTML = stringTable;
+    }
+</script>
+</body>
+</html>

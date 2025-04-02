@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let n = +prompt("nhập độ dài của mảng");
+    while (n > 50 || !Number.isInteger(n) || n < 0) {
+        n = +prompt("nhập lại độ dài của mảng");
+    }
+    let mang = [];
+    for (let i = 0; i < n; i++) {
+        mang[i] = +prompt("nhập giá tri tung phần tử" + i)
+    }
+    alert("mảng là" + mang);
+    function timSoNguyenTo(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            for (let j = 2; j < arr[i]; j++) {
+                if (arr[i] % j === 0) {
+                   return false;
+                }
+            }
+        }
+        return true;
+    }
+    alert(timSoNguyenTo(mang));
+
+
+</script>
+</body>
+</html>
